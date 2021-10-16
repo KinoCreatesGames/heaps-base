@@ -1,8 +1,18 @@
 class Const {
   // Various constants
   public static inline var FPS = 60;
+
+  /**
+   * FixedUpdate FPS Cap.
+   */
   public static inline var FIXED_FPS = 30;
-  public static inline var GRID = 16;
+
+  /**
+   * The size of the grid used in game when it comes to how collisions are checked within the engine.
+   * 
+   */
+  public static inline var GRID = 8;
+
   public static inline var INFINITE = 999999;
 
   /** Unique value generator **/
@@ -18,7 +28,8 @@ class Const {
 
   static inline function get_SCALE() {
     // can be replaced with another way to determine the game scaling
-    return dn.heaps.Scaler.bestFit_i(256, 256);
+    // Updating this will change the way the game is viewed in the viewport.
+    return dn.heaps.Scaler.bestFit_i(128, 128);
   }
 
   /** Specific scaling for top UI elements **/
