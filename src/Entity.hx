@@ -193,6 +193,17 @@ class Entity {
     dy = bdy = 0;
   }
 
+  /** Blink `spr` briefly (eg. when damaged by something) **/
+  public function blink(c:UInt) {
+    blinkColor.setColor(c);
+    cd.setS('keepBlink', 0.06);
+  }
+
+  public inline function clearBlink() {
+    blinkColor = new h3d.Vector();
+    cd.unset('keepBlink');
+  }
+
   public function is<T:Entity>(c:Class<T>)
     return Std.isOfType(this, c);
 
@@ -243,6 +254,8 @@ class Entity {
     ALL.remove(this);
 
     colorAdd = null;
+    baseColor = null;
+    blinkColor = null;
 
     spr.remove();
     spr = null;
