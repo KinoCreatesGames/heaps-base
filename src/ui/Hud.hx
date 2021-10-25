@@ -46,4 +46,12 @@ class Hud extends dn.Process {
       render();
     }
   }
+
+  public function hide() {
+    flow.visible = false;
+  }
+
+  public function show() {
+    flow.visible = true;
+  }
 }

@@ -96,7 +96,7 @@ class Game extends dn.Process {
   //   for (entity in Entity.ALL) {
   //     entity.destroy();
   //   }
-  //   garbageCollectEntities();
+  //   gc();
   //   // Create new level
   //   level = new Level(ldtkLevel, startX, startY);
   //   // Will be using the looping mechanisms
