@@ -39,9 +39,23 @@ class Game extends dn.Process {
     level = new Level();
     fx = new Fx();
     hud = new ui.Hud();
+    hud.hide();
 
     Process.resizeAll();
     trace(Lang.t._("Game is ready."));
+  }
+
+  /**
+   * Starts initial game when on the Title screen.
+   * Pushes to the first level.
+   */
+  public function startInitialGame() {
+    // Play Game Loop Music
+    // bgm = hxd.Res.music.juhani_stage.play(true, 0.5);
+    // level = new Level(proj.all_levels.Level_0);
+    level = new Level();
+    hud.show();
+    fx = new Fx();
   }
 
   public inline function invalidateHud() {
