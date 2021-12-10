@@ -3,11 +3,15 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import h3d.Engine;
+import renderer.CustomRenderer;
 import dn.heaps.Controller;
 import dn.heaps.Controller.ControllerAccess;
 
 class Boot extends hxd.App {
   public static var ME:Boot;
+
+  public var renderer:CustomRenderer;
 
   #if debug
   var tmodSpeedMul = 1.0;
@@ -29,6 +33,8 @@ class Boot extends hxd.App {
   **/
   override function init() {
     ME = this;
+    renderer = new CustomRenderer();
+    s3d.renderer = renderer;
     new Main(s2d);
     onResize();
   }
@@ -62,5 +68,10 @@ class Boot extends hxd.App {
 
     // Update all dn.Process instances
     dn.Process.updateAll(currentTmod);
+  }
+
+  @:access(h3d.scene.Scene, h3d.scene.Renderer, CustomRenderer)
+  override function render(e:Engine) {
+    super.render(e);
   }
 }
