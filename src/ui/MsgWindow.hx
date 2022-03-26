@@ -12,7 +12,7 @@ class MsgWindow extends dn.Process {
   public var textBuffer:String;
   public var allText:Array<String>;
   public var textIndex:Int;
-  public var ct:dn.heaps.Controller.ControllerAccess;
+  public var ct:dn.legacy.Controller.ControllerAccess;
 
   public function new() {
     super(Main.ME);

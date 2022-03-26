@@ -7,7 +7,7 @@ class Notification extends dn.Process {
   public var text:h2d.Text;
   public var padding:Int;
 
-  var ct:dn.heaps.Controller.ControllerAccess;
+  var ct:dn.legacy.Controller.ControllerAccess;
   var mask:h2d.Bitmap;
 
   public function new() {
