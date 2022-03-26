@@ -4,7 +4,7 @@ import hxd.snd.Channel;
 import ui.cmp.TxtBtn;
 
 class Pause extends dn.Process {
-  var ct:dn.heaps.Controller.ControllerAccess;
+  var ct:dn.legacy.Controller.ControllerAccess;
   var mask:h2d.Bitmap;
 
   public var se:Channel;

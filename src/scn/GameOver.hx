@@ -13,7 +13,7 @@ class GameOver extends dn.Process {
   public var complete:Bool;
   public var bgm:Channel;
 
-  var ct:dn.heaps.Controller.ControllerAccess;
+  var ct:dn.legacy.Controller.ControllerAccess;
 
   public var mask:h2d.Bitmap;
 

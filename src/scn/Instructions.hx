@@ -13,7 +13,7 @@ class Instructions extends dn.Process {
     return Game.ME;
   }
 
-  public var ca:dn.heaps.Controller.ControllerAccess;
+  public var ca:dn.legacy.Controller.ControllerAccess;
 
   public var complete:Bool;
   public var win:h2d.Flow;

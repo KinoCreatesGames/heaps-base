@@ -1,35 +1,23 @@
 package scn;
 
+import GameTypes.CollectibleTypes;
+import en3d.IsoEntity3D;
 import shaders.PixelationShader;
 import h3d.scene.Object;
 // import GameTypes.CollectibleTypes;
 import dn.data.SavedData;
-import en3d.collectibles.Shard;
-import en3d.collectibles.Checkpoint;
 import h3d.col.Point;
 import h3d.prim.ModelCache;
-import en3d.blocks.StdBlock;
-import en3d.blocks.CrackedBlock;
 import h3d.prim.Sphere;
 import h3d.shader.CubeMap;
 import h3d.scene.Mesh;
 import h3d.mat.Texture;
-import en3d.blocks.EditorBlock;
-import en3d.blocks.MysteryBlock;
-import en3d.blocks.HeavyBlock;
-import en3d.blocks.BlackHole;
-import en3d.blocks.StaticBlock;
-import en3d.blocks.Spike;
-import en3d.blocks.Goal;
-import en3d.blocks.IceBlock;
-import en3d.blocks.Bounce;
 import GameTypes.BlockType;
 import h3d.prim.Cube;
 import h3d.scene.Scene;
 import h3d.Vector;
 import GameTypes.LvlState;
 import en3d.collectibles.Collectible;
-import en3d.blocks.Block;
 
 class Level3D extends Process3D {
   /** Level grid-based width**/
@@ -68,7 +56,7 @@ class Level3D extends Process3D {
 
   var invalidated = true;
 
-  public var player:en3d.Player3D;
+  public var player:IsoEntity3D;
 
   /**
    * Player starting position.
@@ -77,7 +65,6 @@ class Level3D extends Process3D {
    */
   public var playerStartPos:Vector;
 
-  public var blockGroup:Group<Block>;
   public var collectibles:Group<Collectible>;
 
   /**
@@ -123,13 +110,6 @@ class Level3D extends Process3D {
   public var blockPrim:Cube;
 
   public var cache:ModelCache;
-
-  /**
-   * A Cube mesh for showing where the 
-   * selection cursor is on screen.
-   * Strictly for the editor integration.
-   */
-  public var editorBlock:Block;
 
   public var editorBlockTween:Tweenie;
   public var eBlockAlpha:Float = 1;
@@ -182,7 +162,7 @@ class Level3D extends Process3D {
     setupLight();
     createSkyBox();
     createGroups();
-    createEditorElements();
+
     createEntities();
 
     // Update Camera
@@ -240,21 +220,7 @@ class Level3D extends Process3D {
    */
   public function createGroups() {
     stateStack = [];
-    blockGroup = new Group<Block>();
     collectibles = new Group<Collectible>();
-  }
-
-  public function createEditorElements() {
-    editorBlock = new EditorBlock(0, 0, 0);
-    editorBlock.setBody(blockPrim, root3);
-    var mesh = editorBlock.body.toMesh();
-    mesh.material.color.setColor(0xa1ff01);
-    mesh.material.blendMode = Alpha;
-    mesh.material.shadows = false;
-    editorBlock.body.visible = false;
-    editorBlockTween = new Tweenie(Const.FPS);
-    eTween = editorBlockTween.createS(eBlockAlpha, 0.5, TLoop, 1.5);
-    eTween.plays = -1; // Plays the tween for infinity
   }
 
   public function createEntities() {
@@ -266,10 +232,10 @@ class Level3D extends Process3D {
     loadCheckpoint();
     if (reachedCheckPos) {
       var cp = checkpointPosition;
-      player = new en3d.Player3D(Std.int(cp.x), Std.int(cp.y), Std.int(cp.z),
-        root3);
+      // player = new en3d.Player3D(Std.int(cp.x), Std.int(cp.y), Std.int(cp.z),
+      // root3);
     } else {
-      player = new en3d.Player3D(0, 11, 5, ep);
+      // player = new en3d.Player3D(0, 11, 5, ep);
       clearCheckpoint();
     }
     playerStartPos = new Vector(player.cx, player.cy, player.cz);
@@ -291,79 +257,38 @@ class Level3D extends Process3D {
 
     // Create test blocks for collision checks
     cache = new h3d.prim.ModelCache();
-    for (z in 0...5) {
-      for (i in 0...20) {
-        for (y in 0...20) {
-          var block = new StdBlock(i, y - z, z);
-          block.cache = cache;
-          block.setBody(prim, bp, lightDir);
-          blockGroup.add(block);
-        }
-      }
-    }
+    // for (z in 0...5) {
+    //   for (i in 0...20) {
+    //     for (y in 0...20) {
+    //       // var block = new StdBlock(i, y - z, z);
+    //       block.cache = cache;
+    //       block.setBody(prim, bp, lightDir);
+    //       blockGroup.add(block);
+    //     }
+    //   }
+    // }
 
-    for (z in 5...9) {
-      for (i in 0...10) {
-        for (y in 0...10) {
-          var block = new StdBlock(i, y, z);
-          block.cache = cache;
-          block.setBody(prim, bp, lightDir);
-          blockGroup.add(block);
-        }
-      }
-    }
-    // Create Checkpoint test
-    var checkPoint = new Checkpoint(player.cx, player.cy, player.cz + 1);
-    checkPoint.setBody(quadPrim, ep);
-    collectibles.add(checkPoint);
+    // for (z in 5...9) {
+    //   for (i in 0...10) {
+    //     for (y in 0...10) {
+    //       // var block = new StdBlock(i, y, z);
+    //       block.cache = cache;
+    //       block.setBody(prim, bp, lightDir);
+    //       blockGroup.add(block);
+    //     }
+    //   }
+    // }
+    // // Create Checkpoint test
+    // // var checkPoint = new Checkpoint(player.cx, player.cy, player.cz + 1);
+    // checkPoint.setBody(quadPrim, ep);
+    // collectibles.add(checkPoint);
     // cache.dispose();
-  }
-
-  public function createBlock(blockType:BlockType, x:Int, y:Int, z:Int) {
-    var block:Block = null; // new Block(x, y, z);
-    switch (blockType) {
-      case BlockB:
-        block = new StdBlock(x, y, z);
-      case BounceB:
-        block = new Bounce(x, y, z);
-      case CrackedB:
-        block = new CrackedBlock(x, y, z);
-      case IceB:
-        block = new IceBlock(x, y, z);
-
-      case StaticB:
-        block = new StaticBlock(x, y, z);
-
-      case GoalB:
-        block = new Goal(x, y, z);
-
-      case SpikeB:
-        block = new Spike(x, y, z);
-
-      case BlackHoleB:
-        block = new BlackHole(x, y, z);
-
-      case HeavyB:
-        block = new HeavyBlock(x, y, z);
-      case MysteryB:
-        block = new MysteryBlock(x, y, z);
-    }
-    block.cache = cache;
-    // Set body
-    block.setBody(blockPrim, blockParent, lightDir);
-    // block.body.toMesh().material.color.setColor(0xaa00aa);
-    blockGroup.add(block);
   }
 
   public function createCollectible(collectibleType:CollectibleTypes, x:Int,
       y:Int, z:Int) {
     var collectible:Collectible = null; // new Block(x, y, z);
     switch (collectibleType) {
-      case ShardR:
-        collectible = new Shard(x, y, z);
-      case CheckpointR:
-        collectible = new Checkpoint(x, y, z);
-
       case _:
         // No work to be done
     }
@@ -396,16 +321,12 @@ class Level3D extends Process3D {
    * @param z 
    */
   public function levelCollided(x:Int, y:Int, z:Int) {
-    return blockGroup.members.filter((block) -> block.isAlive()
-      && block.cx == x
-      && block.cy == y
-      && block.cz == z)
-      .first();
+    return false;
   }
 
-  public function playerCollided(x:Int, y:Int, z:Int) {
-    return player.cx == x && player.cy == y && player.cz == z;
-  }
+  // public function playerCollided(x:Int, y:Int, z:Int) {
+  //   return player.cx == x && player.cy == y && player.cz == z;
+  // }
 
   /**
    * Returns the first collectible that is collided with on the current
@@ -436,57 +357,10 @@ class Level3D extends Process3D {
   }
 
   /**
-   * Triggers an undo within the game
-   * and puts you back to the last state of the game
-   * that we have access to.
-   */
-  public function triggerUndo() {
-    var oldState = stateStack.pop();
-    // Update all positions after getting previous state
-    if (oldState != null) {
-      var oldP = oldState.playerPos;
-      player.cx = Std.int(oldP.x);
-      player.cy = Std.int(oldP.y);
-      player.cz = Std.int(oldP.z);
-
-      // Update the position of all the blocks to their
-      // previous versions
-      for (i in 0...oldState.blockPositions.length) {
-        var block = blockGroup.members[i];
-        var bPos = oldState.blockPositions[i];
-        block.cx = Std.int(bPos.x);
-        block.cy = Std.int(bPos.y);
-        block.cz = Std.int(bPos.z);
-      }
-    }
-  }
-
-  /**
-   * Creates a new state when the player makes 
-   * some move within the game. Pushes the latest
-   * state into the state stack.
-   */
-  public function pushState() {
-    var state:LvlState = {
-      playerPos: new Vector(player.cx, player.cy, player.cz),
-      reachedCheckpoint: reachedCheckPos,
-      checkpointPos: checkpointPosition,
-      blockPositions: blockGroup.members.map((block) -> new Vector(block.cx,
-        block.cy, block.cz))
-    }
-    stateStack.push(state);
-  }
-
-  /**
    * Clears all the level elements such
    * as the blocks.
    */
   public function clearLevel() {
-    for (block in blockGroup) {
-      block.destroy();
-    }
-    blockGroup.clear();
-
     for (collectible in collectibles) {
       collectible.destroy();
     }
@@ -543,41 +417,9 @@ class Level3D extends Process3D {
 
   override function update() {
     super.update();
-    handleBlockThresholdFall();
-    handleEditor();
+
     handlePause();
     handleGameOver();
-  }
-
-  public function handleBlockThresholdFall() {
-    if (!cd.has('blockThreshold')) {
-      cd.setS('blockThreshold', THRESHOLD_CD, () -> {
-        // Block Threshold  update and blocks update
-        if (!game.editor.visible) {
-          trace('Update threshold');
-          trace(blockFallThreshold);
-          blockFallThreshold += 1;
-        }
-      });
-    }
-  }
-
-  public function handleEditor() {
-    if (game.ca.isKeyboardPressed(K.E)) {
-      // Show the Editor
-      game.showEditor();
-
-      // player.paus
-      // this.pause();
-    }
-    if (game.editor.flow.visible) {
-      editorBlockTween.update();
-      // trace(eBlockAlpha);
-      var material = editorBlock.body.toMesh().material;
-      // Blend mode needs to be applied for the alpha channel to be used.
-      material.color.set(material.color.x, material.color.y, material.color.z,
-        eBlockAlpha);
-    }
   }
 
   public function handlePause() {
@@ -612,12 +454,6 @@ class Level3D extends Process3D {
     player.destroy();
 
     // Remove Editor Block
-    editorBlock.destroy();
-
-    // Destroy blocks
-    for (block in blockGroup) {
-      block.destroy();
-    }
 
     // Destroy Collectibles
     for (collectible in collectibles) {

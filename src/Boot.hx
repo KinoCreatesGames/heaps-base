@@ -5,8 +5,8 @@
 
 import h3d.Engine;
 import renderer.CustomRenderer;
-import dn.heaps.Controller;
-import dn.heaps.Controller.ControllerAccess;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 class Boot extends hxd.App {
   public static var ME:Boot;

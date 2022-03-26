@@ -1,7 +1,7 @@
 package scn;
 
 import hxd.SceneEvents;
-import dn.heaps.Controller.ControllerAccess;
+import dn.legacy.Controller.ControllerAccess;
 import hxd.snd.Channel;
 import h2d.Flow.FlowAlign;
 

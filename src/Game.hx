@@ -1,6 +1,6 @@
 import dn.Process;
 import hxd.Key;
-import dn.heaps.Controller.ControllerAccess;
+import dn.legacy.Controller.ControllerAccess;
 
 class Game extends dn.Process {
   public static var ME:Game;
