@@ -1,3 +1,4 @@
+import hxd.res.Sound;
 import dn.heaps.slib.*;
 
 class Assets {
@@ -7,6 +8,18 @@ class Assets {
   public static var fontMedium:h2d.Font;
   public static var fontLarge:h2d.Font;
   public static var tiles:SpriteLib;
+  public static var gameTiles:SpriteLib;
+
+  // public static var gameTilesDict = Aseprite.getDict(hxd.Res.img.TilesDriller);
+  // Sound Collection
+  public static var collectSnd:Sound;
+  public static var switchOnSnd:Sound;
+  public static var switchOffSnd:Sound;
+  public static var damageSnd:Sound;
+  public static var selectSnd:Sound;
+  public static var confirmSnd:Sound;
+  public static var pauseIn:Sound;
+  public static var pauseOut:Sound;
 
   static var initDone = false;
 
@@ -26,6 +39,10 @@ class Assets {
     // lgTiles = Aseprite.convertToSLib(Const.FPS,
     //   hxd.Res.img.LargeTiles.toAseprite());
     // Sounds Section
+    collectSnd = hxd.Res.sound.collect_collectible;
+    damageSnd = hxd.Res.sound.hit_sfx;
+    pauseIn = hxd.Res.sound.pause_in;
+    pauseOut = hxd.Res.sound.pause_out;
 
     // // Deep night project
     // projData = new ldtkData.LDTkProj();
