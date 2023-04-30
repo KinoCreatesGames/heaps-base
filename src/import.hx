@@ -3,7 +3,8 @@ import ldtkData.LDTkProj;
 // Math
 import dn.M;
 import dn.Lib;
-import dn.Color;
+import dn.Col;
+import dn.legacy.Color as ColorL;
 // Tweening library
 import dn.Tweenie;
 import dn.data.GetText;
@@ -16,7 +17,7 @@ import tools.*;
  * Project data which is used for when you are using an ldtk file for your game.
  */
 // import Assets.projData;
-import dn.Color as C;
+import dn.Col as Color;
 import hxd.Key as K;
 import tools.LPoint as P;
 
