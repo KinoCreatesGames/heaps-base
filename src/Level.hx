@@ -63,7 +63,7 @@ class Level extends dn.Process {
           || cy == 0
           || cx == cWid - 1
           || cy == cHei - 1) g.beginFill(0xffcc00); else
-          g.beginFill(Color.randomColor(rnd(0, 1), 0.5, 0.4));
+          g.beginFill(ColorL.randomColor(rnd(0, 1), 0.5, 0.4));
         g.drawRect(cx * Const.GRID, cy * Const.GRID, Const.GRID, Const.GRID);
       }
   }
