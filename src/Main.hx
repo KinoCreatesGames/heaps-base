@@ -6,7 +6,7 @@ import hxd.Key;
 class Main extends dn.Process {
   public static var ME:Main;
 
-  /** Used to create "Access" instances that allow controller checks (keyboard or gamepad) **/
+  /** Used to create 'Access' instances that allow controller checks (keyboard or gamepad) **/
   public var controller:Controller;
 
   /** Controller Access created for Main & Boot **/
@@ -35,8 +35,8 @@ class Main extends dn.Process {
     #if debug
     hxd.res.Resource.LIVE_UPDATE = true;
     hxd.Res.data.watch(function() {
-      delayer.cancelById("cdb");
-      delayer.addS("cdb", function() {
+      delayer.cancelById('cdb');
+      delayer.addS('cdb', function() {
         // Only reload actual updated file from disk after a short delay, to avoid reading a file being written
         Data.load(hxd.Res.data.entry.getBytes().toString());
         if (Game.ME != null) Game.ME.onCdbReload();
@@ -48,12 +48,12 @@ class Main extends dn.Process {
     hxd.snd.Manager.get(); // force sound manager init on startup instead of first sound play
     Assets.init(); // init assets
     new ui.Console(Assets.fontTiny, s); // init debug console
-    Lang.init("en"); // init Lang
+    Lang.init('en'); // init Lang
     Data.load(hxd.Res.data.entry.getText()); // read castleDB json
 
     // Game controller & default key bindings
     controller = new Controller(s);
-    ca = controller.createAccess("main");
+    ca = controller.createAccess('main');
     controller.bind(AXIS_LEFT_X_NEG, Key.LEFT, Key.Q, Key.A);
     controller.bind(AXIS_LEFT_X_POS, Key.RIGHT, Key.D);
     controller.bind(AXIS_LEFT_Y_POS, K.UP, K.W);
@@ -65,7 +65,7 @@ class Main extends dn.Process {
     controller.bind(START, Key.N);
 
     #if js
-    // Optional helper that shows a "Click to start/continue" message when the game looses focus
+    // Optional helper that shows a 'Click to start/continue' message when the game looses focus
     new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
     #end
 

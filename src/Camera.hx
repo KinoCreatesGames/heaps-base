@@ -89,7 +89,7 @@ class Camera extends dn.Process {
   var shakePower = 1.0;
 
   public function shakeS(t:Float, ?pow = 1.0) {
-    cd.setS("shaking", t, false);
+    cd.setS('shaking', t, false);
     shakePower = pow;
   }
 
@@ -110,11 +110,13 @@ class Camera extends dn.Process {
 
     // Update scroller
     if (!clampToLevelBounds || pxWid < level.pxWid) scroller.x = -focus.levelX
-      + pxWid * 0.5; else
+      + pxWid * 0.5;
+    else
       scroller.x = pxWid * 0.5 - level.pxWid * 0.5;
 
     if (!clampToLevelBounds || pxHei < level.pxHei) scroller.y = -focus.levelY
-      + pxHei * 0.5; else
+      + pxHei * 0.5;
+    else
       scroller.y = pxHei * 0.5 - level.pxHei * 0.5;
 
     // Clamp
@@ -134,10 +136,10 @@ class Camera extends dn.Process {
     scroller.y += bumpOffY;
 
     // Shakes
-    if (cd.has("shaking")) {
-      scroller.x += Math.cos(ftime * 1.1) * 2.5 * shakePower * cd.getRatio("shaking");
+    if (cd.has('shaking')) {
+      scroller.x += Math.cos(ftime * 1.1) * 2.5 * shakePower * cd.getRatio('shaking');
       scroller.y += Math.sin(0.3
-        + ftime * 1.7) * 2.5 * shakePower * cd.getRatio("shaking");
+        + ftime * 1.7) * 2.5 * shakePower * cd.getRatio('shaking');
     }
 
     // Scaling
@@ -152,7 +154,7 @@ class Camera extends dn.Process {
   override function postUpdate() {
     super.postUpdate();
 
-    if (!ui.Console.ME.hasFlag("scroll")) apply();
+    if (!ui.Console.ME.hasFlag('scroll')) apply();
   }
 
   override function update() {

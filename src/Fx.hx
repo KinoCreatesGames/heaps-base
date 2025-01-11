@@ -71,8 +71,7 @@ class Fx extends dn.Process {
   }
 
   /** Create a HParticle instance in the BG layer, using default blendmode **/
-  public inline function allocBgNormal(t:h2d.Tile, x:Float,
-      y:Float):HParticle {
+  public inline function allocBgNormal(t:h2d.Tile, x:Float, y:Float):HParticle {
     return pool.alloc(bgNormalSb, t, x, y);
   }
 
@@ -91,13 +90,13 @@ class Fx extends dn.Process {
 
   public function markerCase(cx:Int, cy:Int, ?sec = 3.0, ?c = 0xFF00FF) {
     #if debug
-    var p = allocTopAdd(getTile("fxCircle"), (cx + 0.5) * Const.GRID,
+    var p = allocTopAdd(getTile('fxCircle'), (cx + 0.5) * Const.GRID,
       (cy + 0.5) * Const.GRID);
     p.setFadeS(1, 0, 0.06);
     p.colorize(c);
     p.lifeS = sec;
 
-    var p = allocTopAdd(getTile("pixel"), (cx + 0.5) * Const.GRID,
+    var p = allocTopAdd(getTile('pixel'), (cx + 0.5) * Const.GRID,
       (cy + 0.5) * Const.GRID);
     p.setFadeS(1, 0, 0.06);
     p.colorize(c);
@@ -108,7 +107,7 @@ class Fx extends dn.Process {
 
   public function markerFree(x:Float, y:Float, ?sec = 3.0, ?c = 0xFF00FF) {
     #if debug
-    var p = allocTopAdd(getTile("fxDot"), x, y);
+    var p = allocTopAdd(getTile('fxDot'), x, y);
     p.setCenterRatio(0.5, 0.5);
     p.setFadeS(1, 0, 0.06);
     p.colorize(c);
@@ -122,7 +121,7 @@ class Fx extends dn.Process {
     var tf = new h2d.Text(Assets.fontTiny, topNormalSb);
     tf.text = txt;
 
-    var p = allocTopAdd(getTile("fxCircle"), (cx + 0.5) * Const.GRID,
+    var p = allocTopAdd(getTile('fxCircle'), (cx + 0.5) * Const.GRID,
       (cy + 0.5) * Const.GRID);
     p.colorize(0x0080FF);
     p.alpha = 0.6;
@@ -152,7 +151,7 @@ class Fx extends dn.Process {
   **/
   public function dotsExplosionExample(x:Float, y:Float, color:UInt) {
     for (i in 0...80) {
-      var p = allocTopAdd(getTile("fxDot"), x + rnd(0, 3, true),
+      var p = allocTopAdd(getTile('fxDot'), x + rnd(0, 3, true),
         y + rnd(0, 3, true));
       p.alpha = rnd(0.4, 1);
       p.colorAnimS(color, 0x762087,
