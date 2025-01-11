@@ -25,7 +25,7 @@ class ThankYou extends dn.Process {
     createRootInLayers(Game.ME.root, Const.DP_UI);
     complete = false;
     exitCredits = false;
-    ca = Main.ME.controller.createAccess("ThankYou");
+    ca = Main.ME.controller.createAccess('ThankYou');
 
     setupThankYou();
     dn.Process.resizeAll();

@@ -17,7 +17,7 @@ inline function capitalize(string:String):String {
  * @returns {string}
  */
 inline function title(string:String):String {
-  return ~/\s/g.split(string).map(word -> capitalize(word)).join(" ");
+  return ~/\s/g.split(string).map(word -> capitalize(word)).join(' ');
 }
 
 /**
@@ -36,11 +36,11 @@ inline function wordCount(string:String):Int {
  * @param {string} string
  */
 inline function x1breplace(string:String):String {
-  return ~/\\\\/ig.replace(string, "\x1b");
+  return ~/\\\\/ig.replace(string, '\x1b');
 }
 
 inline function x1breplace2(string:String):String {
-  return ~/\\/ig.replace(string, "\x1b");
+  return ~/\\/ig.replace(string, '\x1b');
 }
 
 /**
@@ -49,7 +49,7 @@ inline function x1breplace2(string:String):String {
  * @returns {string}
  */
 inline function monoSpace(string:String):String {
-  return ~/\s{2,}/gi.replace(string, " ");
+  return ~/\s{2,}/gi.replace(string, ' ');
 }
 
 /**

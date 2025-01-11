@@ -26,7 +26,7 @@ class Game extends dn.Process {
   public function new() {
     super(Main.ME);
     ME = this;
-    ca = Main.ME.controller.createAccess("game");
+    ca = Main.ME.controller.createAccess('game');
     ca.setLeftDeadZone(0.2);
     ca.setRightDeadZone(0.2);
     createRootInLayers(Main.ME.root, Const.DP_BG);
@@ -42,7 +42,7 @@ class Game extends dn.Process {
     hud.hide();
 
     Process.resizeAll();
-    trace(Lang.t._("Game is ready."));
+    trace(Lang.t._('Game is ready.'));
   }
 
   /**
@@ -176,8 +176,9 @@ class Game extends dn.Process {
     if (!ui.Console.ME.isActive() && !ui.Modal.hasAny()) {
       #if hl
       // Exit
-      if (ca.isKeyboardPressed(Key.ESCAPE)) if (!cd.hasSetS("exitWarn",
-        3)) trace(Lang.t._("Press ESCAPE again to exit.")); else
+      if (ca.isKeyboardPressed(Key.ESCAPE)) if (!cd.hasSetS('exitWarn',
+        3)) trace(Lang.t._('Press ESCAPE again to exit.'));
+      else
         hxd.System.exit();
       #end
 

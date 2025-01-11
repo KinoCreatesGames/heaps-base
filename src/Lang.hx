@@ -2,8 +2,8 @@ import dn.data.GetText;
 
 class Lang {
   static var _initDone = false;
-  static var DEFAULT = "en";
-  public static var CUR = "??";
+  static var DEFAULT = 'en';
+  public static var CUR = '??';
   public static var t:GetText;
 
   public static function init(?lid:String) {
@@ -13,7 +13,7 @@ class Lang {
     CUR = lid == null ? DEFAULT : lid;
 
     t = new GetText();
-    t.readPo(hxd.Res.load("lang/" + CUR + ".po").entry.getBytes());
+    t.readPo(hxd.Res.load('lang/' + CUR + '.po').entry.getBytes());
   }
 
   public static function untranslated(str:Dynamic):LocaleString {
